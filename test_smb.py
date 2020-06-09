@@ -39,5 +39,5 @@ def download_pysmb(download_file_name):
 
     localFile.close()
 
-upload_pysmb("text_1.txt")
+upload_pysmb("example.txt")
 
