@@ -5,39 +5,45 @@ import time
 import os
 
 def upload_pysmb(upload_file_name):
-    host="127.0.0.1"
+    host="192.168.55.116"
     username=""
     password=""
     port=445
-    conn=SMBConnection(username,password,"","",use_ntlm_v2 = True)
-    result = conn.connect(host, port)   #default : 445
-    f=open(upload_file_name,'w')
 
-    data=[  "host:%s\n"%host , \
-            "username:%s\n"%username, \
-            "password:%s\n"%password, \
-            "port:%s\n"%port,\
-            "result:%s\n"%result ]
+    try:
+        conn=SMBConnection(username,password,"","",use_ntlm_v2 = True)
+        result = conn.connect(host, port,timeout=5)   #default : 445
+        f=open(upload_file_name,'w')
 
-    f.writelines(data)
-    f.close()
-    localFile=open("%s"%upload_file_name,"rb")     
-    conn.storeFile("shared2","/eric-%s.dat"%time.strftime('%m%d-%H%M%S', time.localtime(time.time())),localFile) 
+        data=[  "host:%s\n"%host , \
+                "username:%s\n"%username, \
+                "password:%s\n"%password, \
+                "port:%s\n"%port,\
+                "result:%s\n"%result ]
 
+        f.writelines(data)
+        localFile=open("%s"%upload_file_name,"rb")     
+        conn.storeFile("sharefold","/path/file-%s.dat"%time.strftime('%m%d-%H%M%S', time.localtime(time.time())),localFile) 
+    except Exception as e:
+        print(str(e))
 
 def download_pysmb(download_file_name):
-    host="127.0.0.1"
+    host="0.0.0.0"
     username=""
     password=""
     port=445
-    conn=SMBConnection(username,password,"","",use_ntlm_v2 = True)
-    result = conn.connect(host, port)   #default : 445
-   
-    localFile=open("%s"%download_file_name,"wb")      
+    try:
+        conn=SMBConnection(username,password,"","",use_ntlm_v2 = True)
+        result = conn.connect(host, port)   #default : 445
+    
+        localFile=open("%s"%download_file_name,"wb")      
 
-    conn.retrieveFile("shared2","/eric-%s.dat"%time.strftime('%m%d-%H%M%S', time.localtime(time.time())),localFile) 
+        conn.retrieveFile("sharefold","/path/file-%s.dat"%time.strftime('%m%d-%H%M%S', time.localtime(time.time())),localFile) 
+        localFile.close()
+    except Exception as e:
+        print(str(e))
 
-    localFile.close()
+if __name__ == "__main__":
 
-upload_pysmb("example.txt")
-
+    upload_pysmb("filename")
+    print("finish")
