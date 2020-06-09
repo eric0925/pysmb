@@ -1,3 +1,2 @@
 # pysmb
-python smb
-hello
+hi everyone, this is my github, welcome.
