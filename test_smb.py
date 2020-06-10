@@ -44,6 +44,6 @@ def download_pysmb(download_file_name):
         print(str(e))
 
 if __name__ == "__main__":
-
+    print("start")
     upload_pysmb("filename")
     print("finish")
