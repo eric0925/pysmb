@@ -1,2 +1,2 @@
 # pysmb
-hi everyone, this is my github, welcome.
+hi everyone, this is my pysmb code, welcome.
