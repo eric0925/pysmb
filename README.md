@@ -1,2 +1,2 @@
-# pysmb
-hi everyone, this is my pysmb code, welcome.
+#while ECS 
+this folder is for the code that i build during ECS.
